@@ -29,11 +29,35 @@ function Set-JavaEnvironmentVariables {
     }
 }
 
+# Print Java version
+function Print-JavaVersion {
+    try {
+        Write-Host "Checking installed Java version..." -ForegroundColor Cyan
+        $JavaVersionOutput = java -version 2>&1
+        Write-Host "Java version installed:" -ForegroundColor Green
+        Write-Host $JavaVersionOutput
+    } catch {
+        Write-Host "Unable to determine Java version. Please check your installation." -ForegroundColor Red
+    }
+}
+
 # Main script execution
 try {
     Install-Java-MSI
     Set-JavaEnvironmentVariables
+    Print-JavaVersion
     Write-Host "Java installation completed successfully!" -ForegroundColor Green
 } catch {
     Write-Host "An error occurred: $_" -ForegroundColor Red
 }
+
+#OUTPUT
+#PS C:\Users\konda.r.nagireddy\Documents\java> .\InstallJava.ps1
+# Installing Java 23.0.1 from C:\Users\konda.r.nagireddy\Documents\java\jdk-23_windows-x64_bin.msi...
+# Java 23.0.1 installed successfully to C:\Program Files\Java\jdk-23.
+# JAVA_HOME and PATH environment variables set.
+# Checking installed Java version...
+# Java version installed:
+# java version "23.0.1" 2024-10-15 Java(TM) SE Runtime Environment (build 23.0.1+11-39) Java HotSpot(TM) 64-Bit Server VM (build 23.0.1+11-39, mixed mode, sharing)
+# Java installation completed successfully!
+
